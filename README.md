@@ -1,4 +1,18 @@
-# Stellar React Starter
+# Auth Required Tokens Manager
+
+This app is used to manage testnet auth required tokens.
+
+## Features
+
+* Create a token
+* Make the token be auth required
+* Create trustline for the parties
+* Make the market between the token and XLM
+* Send payments using the token
+* Create SEP7 QRCode to send payments
+* Send path payments from the auth required token to XLM
+* Create SEP7 QRCode to send path payments from the auth required token to XLM
+
 
 ## Available Scripts
 
