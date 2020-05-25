@@ -15,6 +15,7 @@ interface Props {
   kpSender: KeySecret;
   kpReceiver: KeySecret;
   asset: Asset;
+  amount: string;
   kpIssuer: KeySecret;
 }
 
@@ -22,6 +23,7 @@ export const PaymentQRCodeButton = ({
   kpSender,
   kpReceiver,
   asset,
+  amount,
   kpIssuer,
 }: Props) => {
   const dispatch = useDispatch();
@@ -34,8 +36,8 @@ export const PaymentQRCodeButton = ({
     StellarService.buildPaymentTx({
       sender: kpSender,
       destination: kpReceiver.publicKey,
-      amount: "10",
-      asset: asset,
+      amount,
+      asset,
       issuer: kpIssuer,
     })
       .then((tx) => {
@@ -61,7 +63,10 @@ export const PaymentQRCodeButton = ({
         This is a QRCode to transfer (payment) from sender to receiver
         <QRCode value={paymentQRCode} />
       </Modal>
-      <button className="button is-warning" onClick={handleShowPaymentModal}>
+      <button
+        className="button is-small is-warning"
+        onClick={handleShowPaymentModal}
+      >
         QR Code: Payment Sender => Receiver
       </button>
     </>

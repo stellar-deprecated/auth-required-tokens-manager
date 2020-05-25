@@ -10,6 +10,7 @@ interface Props {
   kpSender: KeySecret;
   kpReceiver: KeySecret;
   asset: Asset;
+  amount: string;
   kpIssuer: KeySecret;
 }
 
@@ -17,6 +18,7 @@ export const PathPaymentButton = ({
   kpSender,
   kpReceiver,
   asset,
+  amount,
   kpIssuer,
 }: Props) => {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ export const PathPaymentButton = ({
     StellarService.pathPayment({
       account: kpSender,
       destAsset: Asset.native(),
-      sendAmount: "10",
+      sendAmount: amount,
       sendAsset: asset,
       destination: kpReceiver.publicKey,
       authRequired: { issuer: kpIssuer, asset: asset },
@@ -35,7 +37,7 @@ export const PathPaymentButton = ({
   };
 
   return (
-    <button className="button is-info" onClick={handlePathPayment}>
+    <button className="button is-small is-info" onClick={handlePathPayment}>
       Path Payment Sender => Receiver
     </button>
   );

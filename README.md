@@ -1,18 +1,29 @@
 # Auth Required Tokens Manager
 
-This app is used to manage testnet auth required tokens.
+This app is used to manage testnet auth required tokens and to generate
+[SEP-7](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0007.md)
+QRCodes with payment and path payment operations.
 
 ## Features
 
-* Create a token
-* Make the token be auth required
-* Create trustline for the parties
-* Make the market between the token and XLM
-* Send payments using the token
-* Create SEP7 QRCode to send payments
-* Send path payments from the auth required token to XLM
-* Create SEP7 QRCode to send path payments from the auth required token to XLM
+* Configure token to be auth required.
+* Establish trustlines between accounts and token.
+* Make the market (create offers) between the token and XLM.
+* Send payments using the token.
+* Create SEP7 QRCode to send payments.
+* Send path payments with the path: `auth required token => XLM`.
+* Create SEP7 QRCode to send path payments with the path: `auth required token => XLM`.
 
+## Configuring Keys and Assets
+
+You can check the pre-loaded keys and the asset name in the [.env](.env) file.
+
+It's recommended to generate new keys in [Stellar Lab](https://laboratory.stellar.org/#?network=test)
+and populate [.env](.env) with them.
+
+## UI Sample
+
+![Alt text](UI_Screenshot.png?raw=true "UI Sample")
 
 ## Available Scripts
 

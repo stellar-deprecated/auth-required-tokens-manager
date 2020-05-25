@@ -12,6 +12,7 @@ import { reducer as updatedAt } from "ducks/updatedAt";
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: sans-serif;
+    font-size: 0.8em;
   }
 `;
 

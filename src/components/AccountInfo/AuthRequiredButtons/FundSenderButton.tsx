@@ -19,7 +19,7 @@ export const FundSenderButton = ({ kpSender, asset, kpIssuer }: Props) => {
     StellarService.payment({
       sender: kpIssuer,
       destination: kpSender.publicKey,
-      amount: "111",
+      amount: "1000",
       asset: asset,
       issuer: kpIssuer,
     })
@@ -28,7 +28,7 @@ export const FundSenderButton = ({ kpSender, asset, kpIssuer }: Props) => {
   };
 
   return (
-    <button className="button is-info" onClick={handleFundSender}>
+    <button className="button is-small is-info" onClick={handleFundSender}>
       Fund Sender
     </button>
   );

@@ -3,5 +3,11 @@
 // Update some of Bulma's component variables
 $table-head-background-color: #e8e8e8;
 
+.vertically-center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 // Import bulma sass at the end.
 @import "~bulma/bulma.sass";

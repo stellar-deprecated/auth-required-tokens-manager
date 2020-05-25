@@ -25,7 +25,10 @@ export const MakeAssetAuthRequiredButton = ({ kpIssuer }: Props) => {
   };
 
   return (
-    <button className="button is-info" onClick={() => handleUpdateAssetAuth()}>
+    <button
+      className="button is-small is-info"
+      onClick={() => handleUpdateAssetAuth()}
+    >
       Make Asset be Auth Required
     </button>
   );

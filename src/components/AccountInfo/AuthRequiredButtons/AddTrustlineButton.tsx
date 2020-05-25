@@ -31,7 +31,10 @@ export const AddTrustlineButton = ({ accountsKS, asset }: Props) => {
   };
 
   return (
-    <button className="button is-info" onClick={() => handleAddTrustlines()}>
+    <button
+      className="button is-small is-info"
+      onClick={() => handleAddTrustlines()}
+    >
       Add Trustlines
     </button>
   );

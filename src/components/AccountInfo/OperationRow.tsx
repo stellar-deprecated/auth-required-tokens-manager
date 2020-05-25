@@ -2,7 +2,8 @@ import React from "react";
 import { ServerApi, Horizon } from "stellar-sdk";
 
 import Utils from "helpers/Utils";
-import { shortenStellarAddress } from "helpers/shortenStellarAddress";
+
+import { PublicKeyField } from "components/PublicKeyField";
 
 export const OperationRow = ({
   operation,
@@ -46,9 +47,9 @@ export const getOperationDescription = ({
 
       return (
         <p>
-          {shortenStellarAddress(allowTrustOp.trustee)}{" "}
+          <PublicKeyField stellarAddress={allowTrustOp.trustee} />{" "}
           <strong>{opName}</strong> {allowTrustOp.asset_code} trustline for
-          account {shortenStellarAddress(allowTrustOp.trustor)}
+          account {<PublicKeyField stellarAddress={allowTrustOp.trustor} />}
         </p>
       );
     }
@@ -58,10 +59,10 @@ export const getOperationDescription = ({
 
       return (
         <p>
-          {shortenStellarAddress(createAccountOp.funder)}{" "}
+          <PublicKeyField stellarAddress={createAccountOp.funder} />{" "}
           <strong>created account</strong>{" "}
-          {shortenStellarAddress(createAccountOp.account)} with starting balance{" "}
-          {parseFloat(createAccountOp.starting_balance)}
+          <PublicKeyField stellarAddress={createAccountOp.account} /> with
+          starting balance {parseFloat(createAccountOp.starting_balance)}
         </p>
       );
     }
@@ -71,9 +72,10 @@ export const getOperationDescription = ({
 
       return (
         <p>
-          {shortenStellarAddress(paymentOp.from)} <strong>payment</strong>{" "}
-          {parseFloat(paymentOp.amount)} {paymentOp.asset_code || "XLM"} to{" "}
-          {shortenStellarAddress(paymentOp.to)}
+          <PublicKeyField stellarAddress={paymentOp.from} />{" "}
+          <strong>payment</strong> {parseFloat(paymentOp.amount)}{" "}
+          {paymentOp.asset_code || "XLM"} to{" "}
+          <PublicKeyField stellarAddress={paymentOp.to} />
         </p>
       );
     }
@@ -83,11 +85,11 @@ export const getOperationDescription = ({
 
       return (
         <p>
-          {shortenStellarAddress(paymentOp.from)} <strong>path payment</strong>{" "}
-          {parseFloat(paymentOp.source_amount)}{" "}
+          <PublicKeyField stellarAddress={paymentOp.from} />{" "}
+          <strong>path payment</strong> {parseFloat(paymentOp.source_amount)}{" "}
           {paymentOp.source_asset_code || "XLM"} =>{" "}
           {parseFloat(paymentOp.amount)} {paymentOp.asset_code || "XLM"} to{" "}
-          {shortenStellarAddress(paymentOp.to)}
+          <PublicKeyField stellarAddress={paymentOp.to} />
         </p>
       );
     }
@@ -97,7 +99,7 @@ export const getOperationDescription = ({
 
       return (
         <p>
-          {shortenStellarAddress(offerOp.source_account)}{" "}
+          <PublicKeyField stellarAddress={offerOp.source_account} />{" "}
           <strong>placed new passive offer – sell</strong>{" "}
           {parseFloat(offerOp.amount)} {offerOp.selling_asset_code || "XLM"} for{" "}
           {offerOp.buying_asset_code || "XLM"} at {parseFloat(offerOp.price)}{" "}

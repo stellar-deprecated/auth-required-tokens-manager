@@ -15,6 +15,7 @@ interface Props {
   kpSender: KeySecret;
   kpReceiver: KeySecret;
   asset: Asset;
+  amount: string;
   kpIssuer: KeySecret;
 }
 
@@ -22,6 +23,7 @@ export const PathPaymentQRCodeButton = ({
   kpSender,
   kpReceiver,
   asset,
+  amount,
   kpIssuer,
 }: Props) => {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ export const PathPaymentQRCodeButton = ({
     StellarService.buildPathPaymentTx({
       account: kpSender,
       destAsset: Asset.native(),
-      sendAmount: "10",
+      sendAmount: amount,
       sendAsset: asset,
       destination: kpReceiver.publicKey,
       authRequired: { issuer: kpIssuer, asset: asset },
@@ -63,7 +65,7 @@ export const PathPaymentQRCodeButton = ({
         <QRCode value={pathPaymentQRCode} />
       </Modal>
       <button
-        className="button is-warning"
+        className="button is-small is-warning"
         onClick={handleShowPathPaymentModal}
       >
         QR Code: Path Payment Sender => Receiver

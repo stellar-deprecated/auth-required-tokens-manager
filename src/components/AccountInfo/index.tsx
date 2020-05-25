@@ -7,6 +7,7 @@ import StellarService from "services/StellarService";
 import { OffersTable } from "components/AccountInfo/OffersTable";
 import { OperationsTable } from "components/AccountInfo/OperationsTable";
 import ErrorSection from "components/ErrorSection";
+import { PublicKeyField } from "components/PublicKeyField";
 
 export const AccountInfo = ({
   title,
@@ -42,7 +43,7 @@ export const AccountInfo = ({
           <p className="level-item"></p>
         </div>
         <div className="level-right">
-          <p className="level-item">{keypair.publicKey}</p>
+          <PublicKeyField stellarAddress={keypair.publicKey} />
         </div>
       </div>
 
@@ -51,7 +52,7 @@ export const AccountInfo = ({
           <p className="level-item">Secret</p>
         </div>
         <div className="level-right">
-          <p className="level-item">{keypair.secret}</p>
+          <PublicKeyField stellarAddress={keypair.secret} />
         </div>
       </div>
 
@@ -73,7 +74,13 @@ export const AccountInfo = ({
                 <tr key={JSON.stringify(b)}>
                   <td>{balance.asset_code ?? "XLM"}</td>
                   <td>{balance.balance}</td>
-                  <td>{balance.asset_issuer ?? "native"}</td>
+                  <td>
+                    {!balance.asset_issuer ? (
+                      "native"
+                    ) : (
+                      <PublicKeyField stellarAddress={balance.asset_issuer} />
+                    )}
+                  </td>
                 </tr>
               );
             })}

@@ -7,21 +7,15 @@ import { KeySecret } from "helpers/types";
 import StellarService from "services/StellarService";
 
 interface Props {
-  kpMarketMaker: KeySecret;
   asset: Asset;
   kpIssuer: KeySecret;
 }
 
-export const CreateMarketButton = ({
-  kpMarketMaker,
-  asset,
-  kpIssuer,
-}: Props) => {
+export const CreateMarketButton = ({ asset, kpIssuer }: Props) => {
   const dispatch = useDispatch();
 
   const handleCreateMarket = () => {
     StellarService.createOffer({
-      account: kpMarketMaker,
       amount: 1000,
       buyingAsset: asset,
       sellingAsset: Asset.native(),
@@ -35,7 +29,7 @@ export const CreateMarketButton = ({
   };
 
   return (
-    <button className="button is-info" onClick={handleCreateMarket}>
+    <button className="button is-small is-info" onClick={handleCreateMarket}>
       Create Market
     </button>
   );

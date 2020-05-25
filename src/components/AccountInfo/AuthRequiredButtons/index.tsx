@@ -1,39 +1,32 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { Asset } from "stellar-sdk";
 
 import Utils from "helpers/Utils";
 
 import ErrorSection from "components/ErrorSection";
+import { Env } from "helpers/Env";
 import { KeySecret, UpdatedAt } from "helpers/types";
+import { useRedux } from "hooks/useRedux";
+
 import { MakeAssetAuthRequiredButton } from "components/AccountInfo/AuthRequiredButtons/MakeAssetAuthRequiredButton";
 import { AddTrustlineButton } from "components/AccountInfo/AuthRequiredButtons/AddTrustlineButton";
 import { FundSenderButton } from "components/AccountInfo/AuthRequiredButtons/FundSenderButton";
-import { PaymentButton } from "components/AccountInfo/AuthRequiredButtons/PaymentButton";
-import { PaymentQRCodeButton } from "components/AccountInfo/AuthRequiredButtons/PaymentQRCodeButton";
-import { PathPaymentButton } from "components/AccountInfo/AuthRequiredButtons/PathPaymentButton";
-import { PathPaymentQRCodeButton } from "components/AccountInfo/AuthRequiredButtons/PathPaymentQRCodeButton";
 import { CreateMarketButton } from "components/AccountInfo/AuthRequiredButtons/CreateMarketButton";
 import { ActionCreators as UpdatedAtActionCreator } from "ducks/updatedAt";
-import { useRedux } from "hooks/useRedux";
+import { PaymentSection } from "components/PaymentSection";
+import { PathPaymentSection } from "components/PathPaymentSection";
 
 type Props = {
   kpIssuer: KeySecret;
-  kpMarketMaker: KeySecret;
   kpSender: KeySecret;
   kpReceiver: KeySecret;
 };
 
-export function AuthRequiredButtons({
-  kpIssuer,
-  kpMarketMaker,
-  kpSender,
-  kpReceiver,
-}: Props) {
+export function AuthRequiredButtons({ kpIssuer, kpSender, kpReceiver }: Props) {
   const dispatch = useDispatch();
   const { updatedAt } = useRedux<{ updatedAt: UpdatedAt }>("updatedAt");
-  const asset = new Asset("5QXRauth", kpIssuer.publicKey);
+  const asset = Env.asset;
 
   return (
     <div>
@@ -52,7 +45,7 @@ export function AuthRequiredButtons({
 
           <div className="column is-narrow">
             <AddTrustlineButton
-              accountsKS={[kpMarketMaker, kpSender, kpReceiver]}
+              accountsKS={[kpSender, kpReceiver]}
               asset={asset}
             />
           </div>
@@ -66,57 +59,29 @@ export function AuthRequiredButtons({
           </div>
 
           <div className="column is-narrow">
-            <CreateMarketButton
-              kpMarketMaker={kpMarketMaker}
-              asset={asset}
-              kpIssuer={kpIssuer}
-            />
+            <CreateMarketButton asset={asset} kpIssuer={kpIssuer} />
           </div>
 
           <div className="column is-narrow">
-            <div>Updated at {Utils.Date.format(updatedAt.date)}</div>
+            <div className="vertically-center">
+              Updated at {Utils.Date.format(updatedAt.date)}
+            </div>
           </div>
         </div>
 
-        <div className="columns is-desktop is-multiline is-centered">
-          <div className="column is-narrow">
-            <PaymentButton
-              kpSender={kpSender}
-              kpReceiver={kpReceiver}
-              asset={asset}
-              kpIssuer={kpIssuer}
-            />
-          </div>
+        <PaymentSection
+          kpIssuer={kpIssuer}
+          asset={asset}
+          kpSender={kpSender}
+          kpReceiver={kpReceiver}
+        />
 
-          <div className="column is-narrow">
-            <PaymentQRCodeButton
-              kpSender={kpSender}
-              kpReceiver={kpReceiver}
-              asset={asset}
-              kpIssuer={kpIssuer}
-            />
-          </div>
-        </div>
-
-        <div className="columns is-desktop is-multiline is-centered">
-          <div className="column is-narrow">
-            <PathPaymentButton
-              kpSender={kpSender}
-              kpReceiver={kpReceiver}
-              asset={asset}
-              kpIssuer={kpIssuer}
-            />
-          </div>
-
-          <div className="column is-narrow">
-            <PathPaymentQRCodeButton
-              kpSender={kpSender}
-              kpReceiver={kpReceiver}
-              asset={asset}
-              kpIssuer={kpIssuer}
-            />
-          </div>
-        </div>
+        <PathPaymentSection
+          kpIssuer={kpIssuer}
+          asset={asset}
+          kpSender={kpSender}
+          kpReceiver={kpReceiver}
+        />
       </section>
     </div>
   );

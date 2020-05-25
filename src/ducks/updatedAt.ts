@@ -1,6 +1,7 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { getErrorString } from "helpers/getErrorString";
 import { UpdatedAt } from "helpers/types";
+import { toast } from "react-toastify";
 
 export const Actions = {
   UPDATE_DATE: "UPDATE_DATE",
@@ -12,6 +13,7 @@ export const InitialState: UpdatedAt = { date: new Date(), errorMessage: null };
 
 export const reducer = createReducer(InitialState, {
   [Actions.UPDATE_DATE]: () => {
+    toast.success("Success!");
     return { date: new Date(), errorMessage: null };
   },
 
